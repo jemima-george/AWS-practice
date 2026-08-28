@@ -36,3 +36,25 @@
 -  Search for IAM on Console, Go to IAM Users Section -> Security credentials
 - Assign MFA device 
 - Can use Authenticator app as MFA device - Scan QR code shown on authenticator appp
+
+### IAM Identity Center - Best Practice for Companies
+- Allows users to access AWS using temporary credentials with limited permissions based on roles
+- Require Multi-factor authentication MFA 
+- Safeguard root user credentials - Not to be used for daily tasks
+- Apply least permissions
+- Search for IAM Identity Center in Console
+- Can configure MFA here: Go to Confirm identity source -> Authentication 
+- Can manage permissions for multiple accounts:
+    1. Create permission set 
+    2. Choose predefined or custom set
+    3. Select policy for predefined permission set
+- Create Group in Group Section
+- Create User in User Section:
+    1. Add name, email and any other user information 
+    2. Can add user into a group
+- To assign users/groups to account:
+    1. Go to AWS Accounts -> Select the account
+    2. Assign users and groups to account
+    3. Allow permission sets to groups or users
+    4. Users will get an email to accept invitation to account 
+    5. Users can directly signup into AWS account and can access permissions set for them 
