@@ -12,3 +12,20 @@
 
 - Configure MFA
 
+## Task 2: AWS Compute & Storage Services
+### To Practice:
+- Launch an EC2 instance
+
+- Connect to EC2
+
+- Practise User Data
+
+- Explore IAM roles with EC2
+
+- Create an S3 bucket
+
+- Upload objects
+
+- Explore S3 storage classes
+
+- Complete relevant hands-on labs
