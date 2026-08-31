@@ -29,3 +29,18 @@
 - Explore S3 storage classes
 
 - Complete relevant hands-on labs
+
+## Task 3: Networking, Scaling & Application Services
+### To Practice:
+
+- Explore VPC
+
+- Identify public/private subnets
+
+- Explore Security Groups
+
+- Create/test a basic Lambda function
+
+- Understand API Gateway
+
+- Review Auto Scaling and Load Balancer use cases
