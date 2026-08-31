@@ -127,11 +127,65 @@ as use case -> Add permissions (eg:s3readonlyaccess) -> Add role name -> Create 
     7. Can Run service: Go to Clusters -> Select the cluster -> Click Services -> Create service to specify np.of instances/tasks to run -> Keep capacity provider as fargate, application type as service, choose task definition family as task definition name, add service name, add no.of desired tasks and choose security group as 'webacess' under networking -> Create service (Can delete servicewith force delete and cluster should be deleted seperately)
 
 ### Storage Comparison Notes:
-- 
+The services used are Amazon Elastic Block store, Amazon Elastic File system and Amazon Simple Storage System(S3) and Amazon Storage Gateway. We can connect the EC2 instance to any of storage type using the services.
+Types of AWS Storage systems are:-
+1. Block-based -
+    - Examples are Hard disk drives(HDD) and solid state drives (SSD)
+    - Using HDD in the cloud is very cost effective
+    - HDD are magnetic devices that are slower than SSD
+    - SSD uses flash memory. It is faster than HDD but costlier
+    - Computers use HDD and the HDD can be partitioned with the volume
+    - Disks can be internal or network attached 
+
+2. File-based -
+    - File system is created on top of block based system
+    - It is shared across the network using Network Attached Storage Server (NAS)
+    - Connection with Remote drive is maintained with NAS and client  
+    - Can be shared by many users
+
+3. Object-based -
+    - Storage container called bucket on AWS S3
+    - User uploads objects using web browser using REST API
+    - Objects are files stored in a container (can be files, videos, pdfs, pics etc.)
+    - Scalable and low costs 
+    - Can mimic hierarchy with prefixes
+    - Use HTTP request to public AWS S3 url to access objects in a bucket. Buck name should be unique
+    - EC2 can connect S3 using private address without having to access internet 
+
+### Create and Attach EBS Volume:
+- It is a Block-based storage system
+- Create and Attach EBS Volume to EC2 Instance 
+- Create and Attach file system to the EBS Volume disk
+- Instructions to Work with EBS Volume is available in amazon-ebs-volumes.md file
+
+### Amazon S3 Storage Classes:
+Determine best places to store data based on storage classes.
+- More availability zones, more data copied on multiple zones, less data corruption 
+- If you have only one avalability zone and it fails, then you will lose access to the data but with multiple avalability zones if one fails, others still work.
+- Intelligent tiering means that AWS will work out which class is best
+![alt text](s3-storage-classes.png)
 
 ### Create an S3 bucket:
+1. Search for S3 on Console, Click Create bucket
+2. Create bucket with a name along with random characters to make it unique and keep default settings 
+3. After creating bucket, can upload objects into the bucket
 
 ### Upload objects:
+1. Select bucket created to object tab
+2. Click upload and can 'add files'
+3. Under properties, can choose storage class for object uploaded
+4. To access the uploaded object's url and key, select the object in the bucket
+5. To mimic hierarchy -
+    - Create folder with a name
+    - Go into folder create, upload file
+    - The file uploaded will have folder name also in the key
+6. Since block all public access is enabled, we will not be able to access object's public url. We should change permissions to access it -
+    - Go to bucket -> open Permisssions tab
+    - Edit block public access and uncheck block all public access
+    - Now we can edit bucket policy and click add a new statement
+    - Remove curly brackects for Principal and change it to "Principal": "*"
+    - Change action to "Action": "s3:GetObject"
+    - Change resource to "Resource": "(insert bucket arn here)/*"
+7. To view object, copy paste object url on browser
 
-### Explore S3 storage classes:
 
