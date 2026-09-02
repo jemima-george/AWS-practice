@@ -1,6 +1,6 @@
 # AWS-practice
 
-## Task 1: AWS Fundamentals, Account Setup & IAM
+## Task 1: AWS Fundamentals, Account Setup & IAM (Section 1 - 4)
 ### To Practice:
 - Set up/access AWS account
 
@@ -12,7 +12,7 @@
 
 - Configure MFA
 
-## Task 2: AWS Compute & Storage Services
+## Task 2: AWS Compute & Storage Services (Section 5 & 6)
 ### To Practice:
 - Launch an EC2 instance
 
@@ -30,7 +30,7 @@
 
 - Complete relevant hands-on labs
 
-## Task 3: Networking, Scaling & Application Services
+## Task 3: Networking, Scaling & Application Services (Section 7 - 9)
 ### To Practice:
 
 - Explore VPC
@@ -44,3 +44,16 @@
 - Understand API Gateway
 
 - Review Auto Scaling and Load Balancer use cases
+
+## Task 4: Deployment, Databases, Governance & Security (Section 10 - 13)
+### To Practice:
+
+- Explore Elastic Beanstalk/CloudFormation
+
+- Review RDS and DynamoDB use cases
+
+- Explore CloudWatch and CloudTrail
+
+- Review security services
+
+- Map services to common application requirements
