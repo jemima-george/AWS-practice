@@ -73,3 +73,64 @@ How to create Application Load balancer:
 3. Go to Load balancers -> Create Load balancer for Application Load balancer with a name -> Choose the 2 AZ for mapping -> Select webaccess as security groups -> Select target group created under listeners and routing -> Create load balancer
 4. Go to the Auto scaling group, edit load balancing -> select application, network, gateway target groups and select the target group -> update
 5. Copy DNS name in load balancer and paste in browser to test
+
+### Application Services:
+Serverless services -
+- No need to manage instances, provide hardware or manage OS
+- Automatically manages capacity provisioning and patching
+- Automatic scaling and cheaper
+- Use with event driven architecture which is a pattern where an event would trigger an action in another service 
+- Can build static website without server
+- Eg: AWS Lambda Service
+
+AWS Lambda -
+- Run some code when triggered by an event
+- Cost is based on memory assigned and the duration of func execution
+- IAM role grants func permission to access other AWS services
+- CloudWatch handles monitoring and logging
+- Must add permissions to AWS Lambda if you want func code to connect to other AWS services
+
+### Create/test a basic Lambda function:
+Create a basic Lambda function that logs a message to Amazon CloudWatch logs -
+1. Open working-with-lambda.md file and Copy the python code to run when event is triggered (import logging....) 
+2. Search for Lambda in the Console -> Create a function -> Author from scratch -> Add function name -> Choose runtime as python -> Create function
+3. Scroll down to Code source, Paste python code copied to log message into CloudWatch -> Click Deploy
+4. Change tab from code source to configuration with default config for time and memory -> Click permission tab which has CloudWatch logs by default. Can edit execution role to add permissions to other AWS services.
+5. Change to Test tab -> Copy first test event in working-with-lambda.md file -> Go back to test tab and add an event name -> Paste test event into event JSON -> Click save -> Click Test to Run
+6. Change to Monitor tab -> Click view CloudWatch logs -> Select log stream
+7. To Test event using the CLI, Go to CloudShell in Console -> Create a file in CloudShell named "payload.json" by running: nano payload.json -> Copy json test code from working-with-lambda.md file and paste in CloudShell -> save file -> Run Point 5 command from working-with-lambda.md file  in CloudShell but update <function-name> part with the lambda function name -> Can view test in CloudWatch logs 
+
+How to create an event notification for S3 uploads:
+1. Copy python code (line 54 to line 78) from working-with-lambda.md file 
+2. Go back to the Lambda function's Code source tab and paste new code to log new objects uploaded into s3 bucket -> Deploy 
+3. Go to Configuration tab -> Permissions -> Click Role name -> Add permissions under permisssions policies -> Search for S3 and select S3ReadOnlyAccess -> Add permission
+4. Go back to lambda func -> Add trigger -> Chose S3 as source -> Choose a bucket/ create new bucket 
+5. View S3 uploads in CloudWatch logs
+
+### Lambda practice evidence:
+Labdma Function Code Source:
+
+![alt text](lambda-code.png)
+
+Test event to log message into CloudWatch logs:
+
+![alt text](lambda-test.png)
+
+Message logged in CloudWatch logs:
+
+![alt text](lambda-logs.png)
+
+### Application Integration Services:
+- Simple Queue Service (SQS) - puts messages/orders into a queue, useful during high demand times 
+- Simple Notification Service (SQS) - information sent to users when a new message is added into the topic queue, supports notifications to web application, email, sms
+- Step Functions - useful for coordinating aws services with workflows
+- Amazon MQ - similar to sqs, messages support apache, active mq, rabbitmq
+- Event bridge - serverless event bus to connect application and aws services, event source changes and notifies event bus which has a rule to do or send a message to a target
+
+### Understand API Gateway:
+- Useful service to connect an application to different microservices
+- Takes requests from application through rest api oven https
+- Focuses on http methods to direct to different microservices 
+
+
+
