@@ -132,5 +132,133 @@ Message logged in CloudWatch logs:
 - Takes requests from application through rest api oven https
 - Focuses on http methods to direct to different microservices 
 
+### Amazon VPC, Networking, and Hybrid:
+Amazon Virtual Private Cloud (VPC) -
+- VPC is an isolated portion of the AWS cloud within a region
+- Things created within vpc can only be visible inside your account unless launch publicly
+- Within VPC, we can create subnets which are mapped to AZ
+- Can launch instances in subnets and use internet gateway to connect to internet
+- Has a router to define the routes and how to route traffic
+- Can create multiple VPC within each region
+- AWS services that sit outside the vpc are called public services. Eg: DynamoDB, S3
+- AWS services that sit inside the vpc are called private services. Eg: RDS, Elastic file system
+- No Cost for VPC
+
+### Explore VPC:
+Create practice custom VPC -
+1. Search for VPC Console
+2. Create own VPC:
+    - select vpc and more
+    - can change name
+    - select no. of AZ
+    - Can choose no.of public or private subnets
+    - Choose VPC endpoints as none 
+3. Go to subnets -> select public subnets -> edit subnet settings -> check enable auto-assign public IPv4 address
+4. Can also manually create a custom VPC with custom subnets and manually change route table with subnet associations, Can create internet gateway and attach to the vpc, edit routes in both public and private route tables and add route as any ip address that targets the internet gateway
+5. Launch instance into subnet by editing network settings and change vpc and choose a subnet 
+
+### Security Groups and Network ACLs:
+- Security Groups and Network ACLs are 2 types of firewalls in a VPC to protect our AWS services 
+- Stateful firewall allows the return of traffic from web server to client automatically 
+- Stateless firewall checks for an allow rule for the traffic to pass
+
+Network access control list (ACL) -
+- Applied at subnet level
+- Only Screens traffic that comes in and leaves the subnet
+- Stateless firewall that has to apply the rules to inbound and outbound traffic
+- Both allow and deny rules
+
+Security Groups -
+- Assigned at instance level
+- Can be applied to instances in any subnet
+- It is a Stateful firewall which will allow return taffic if inbound traffic is allowed
+- Only allow rules
+
+### Explore Security Groups and NACL:
+Practice using Security Groups -
+1. Search for EC2 Console -> Go to security groups
+2. Create a security group with name and add an inbound rule for SSH type and change source to anywhere - ipv4
+3. Delete previous outbound rule and add a new rule with Custom ICMP-IPv4 type and change destination to anywhere-ipv4
+4. To allow curl access to http site, Add another outbound rule with HTTP type and change destination to anywhere-ipv4
+
+Practice using NACLS -
+1. Search for VPC Console -> Go to Network ACL
+2. Select NACL in default vpc -> Go to inbound rules -> Edit and add rule which will be processed in order 
+3. Add rule with 101 as rule number, all traffic as type, any source as source and deny
+4. Match happens earlier so traffic passed but if rule number is changed to 99, access is denied
+
+### Types of IP Address:
+Public IP address -
+- Realeased when instance stopped
+- used in public subnets
+- cannot be moved between instances
+- associated with private ip address on instance
+- charged
+
+Private IP address -
+- Reatined when instance is stopped
+- Used in public and private subnets
+
+Elastic IP address -
+- Static public ip address
+- charged
+- associated with private ip address on instance
+- can be moved between instances
+- can keep public ip address same even if instance is stopped by associating it with an instance and map it to the private ip address
+- have to delete/ release ip address when not in use or else will be charged
+
+### NAT Gateways:
+- Managed by AWS 
+- Charged
+- Must be Deployed in public subnets if you want to connect to the internet
+- Needs an elastic IP address
+- Nat instance is managed by you - manual scaling, assign security groups, can use elastic ip address or public ip address
+- Public NAT Gateway Connectivity is where instances in private subnets can connect to the internet using a NAT gateway
+- Private NAT Gateway Connectivity is where instances in private subnets can connect to other vpcs or on-premise networks through a NAT gateway
+
+### VPC Peering:
+- Private connection between 2 amazon VPCs
+- Allows VPCs to communicate
+- Does not depend on central gateway
+- supports same account or cross account peering 
+- full IP address control
+- supports all AWS services
+- no transitivive routing
+- route table should be updated manually
+
+### Amazon VPN and AWS Direct Connect:
+VPN -
+- AKA site-to-site VPN since it connects company site to public cloud site
+- VPC has a virtual private gateway and company site/data center has a customer gateway.
+- Can connect the 2 gateways using VPN which is an encrypted connection going over the internet
+- Can face bandwidth issues, low latency or delay because it goes over the internet
+
+AWS Direct Connect -
+- Private connection between AWS and comany site/data center
+- Connect using a direct connect location 
+- Establish connection between then
+- Increased speed, consistency, high latency and good performance
+- Expenensive
+
+### AWS Transit Gateway:
+- Enables simple connectivity by simplifying network management that connect VPCs and on-premise networks
+- More scalable than VPC peering
+- Allows transitive pairing to enable VPCs to connect with each other
+- Can be used for both VPN and direct connect
+- Can access cross-accounts
+- transit gateways connects all VPC
+- Can connect to VPNs, direct connect, TGWs in other regions
+
+### AWS Outposts
+- Service to extend some functions of AWS into a company's own premise data center
+- Private hybrid cloud in your own premise data center
+- Public cloud in AWS
+- deploy a VPC and extends subnets within coporate data center and AWS cloud
+- Launch instances in the subnets and allow communcation using private IP addresses
+- Services include - EC2, EBS, S3, VPC, ECS, RDS, EMR
+
+### Basic AWS network diagram:
+![alt text](vpn-connection.png)
+
 
 
