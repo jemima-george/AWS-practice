@@ -262,3 +262,96 @@ Types:-
 - Amazon QLDB- Ledger database for immutable change history and transaction logging
 - Amazon Managed Blockchain - Service that joins public an private networks using Hyperledger Fabric and Ethereum
 
+## Management and Governance:
+
+### AWS Organizations: 
+- Consolidate all your AWS accounts into an organisation you create
+- Used for central management
+- Available with either Consolidated biling feature or all features sets
+- Root account is the account used to make the organisation
+- Consolidated biling feature allows one account to pay all account bills and seperate management of other accounts
+- Consists of: 
+    - Root account that receives a consolidated bill
+    - Additional accounts kept in organisational units (OU)
+    - Deployed resources for each account
+    - Can apply service control policies to control tagging and available API actions
+    - Can create accounts programmatically using CLI
+- Service control policies can be implemented as deny list strategy or allow list strategy
+- 
+
+### Control Tower:
+- Extends AWS organisations capabilities
+- Landing zones - well-architectured multi account baseline, best practice
+- federated access IAM 
+- Centralised logging
+- account factory automation
+- Preventive Guardrail to disallow API using SCPs. Enforce compliance and security best practices
+- Detective Guardrail used for governance and compliance are implemented using AWS config rules and lambda functions. Monitor or report policy violations or non-compliant activities
+- Shared accounts: 
+    - Management account used to launch control tower. Root user and IAM administrator have full access to all resources in the landing zone
+    - Log archive account stores copy of CloudTrail and Config log files from other accounts in a central s3 bucket
+    - Audit account that aggregates and stores logs from all other accounts. Secure account
+
+### AWS Systems Manager:
+- Managment solution for resources on AWS, on-oremise and on other clouds
+- Helps with operations, application, change and node management
+- Manage EC2 instances and on-premise servers and virtual machines (VM) and VMs hosted by other cloud providers
+- SSM agent must be installed on managed instances and servers
+- Should provide IAM permissions to allow management
+- Core components are:
+    - Automation which automates IT operations and management across resources defined in the documents (JSON/YAML) to perform. Takes snapshot of data
+    - Run command used to run commands in the command, automation or package documents on managed EC2 instances
+    - Inventory of all managed systems
+    - Patch manager helps select and deploy OS and software patches on on-premise instances. Can set rules to select patches. Can schedule maintenance windows
+    - compliance used to scan managed instances for patch compliance and config inconsistencies
+    - session manager allows secure remote management of instances without logging into your servers
+    - parameter store provides secure hierachial storage for config data management and secrets management. Store passwords, database strings and license codes as parameter values
+
+### Service Catalog:
+- Service to create and manage catalogs of IT services that are approved on AWS
+- IT services include virtual machine image, servers, software and databases
+- quickly deploy services they need to access
+- Admin creates a product which have different versions
+- product added to a portfolio
+- Users or group get access to the portfolio
+
+### AWS Config:
+- Configuration management service
+- evaluates your AWS resource configurations against desired settings
+- If config changes occur, info is sent to Aws config and can send notifications
+- Can trigger alerts and automatically remediate
+- Gives a snapshot of cuurent resource configs associated with your account
+- retrive historical configs of one or more resources
+- Receive notification when a resource changes
+- View relationships b/w resources
+- Example rules:
+    - s3 bucket version enabled
+    - restricted ssh
+    - rds instance public access configured
+    - cloudtrail enabled
+    - approved amis by id
+
+### AWS Trusted Advisor:
+- Resource to help reduce costs, increase performance and improve security of AWS environment
+- Provide real-time guidance to provision resources
+- Advise to follow best practices like Cost optimisation, performance, security and fault tolerance
+
+### AWS Health API and Dashboards:
+- Health API to check resource health
+- Can also be viewed in Personal health dashboard console which provides alerts and remediation guidance when AWS experiences events that affect you personally. Provides notifications to plan. 
+- Service Health dashboard shows health status information that is not peronalised to you. Shows current status info on service availability. 
+
+### AWS Compute Optimiser:
+- Service that reccommends optimal AWS resources for your workloads to reduce costs and improve performance
+- Uses machine learning to analyse historical utilisation metrics
+- Offers optimisation guidance for ec2 instances, ebs volumes and lambda functions
+
+### AWS Launch Wizard:
+- Offers a guided way of sizing, configuring and deploying AWS resources for third party applications
+- Automatically identify and deploy the most cost effectibe and optimal resources based on your requirements
+- Simiplified deployment
+- Resource optimised tailored to your needs
+- Quick Start
+
+
+
